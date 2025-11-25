@@ -321,6 +321,83 @@
       color: #e2e8f0;
     }
     
+    /* PERBAIKAN NAVBAR DENGAN DROPDOWN */
+    .nav-item .btn-logout {
+      background: none;
+      border: none;
+      color: #cbd5e1;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    
+    .nav-item .btn-logout:hover {
+      color: var(--danger-color);
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+    
+    .navbar-nav .nav-item {
+      display: flex;
+      align-items: center;
+    }
+    
+    .dropdown-menu {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      padding: 0.5rem;
+    }
+    
+    .dropdown-item {
+      color: #cbd5e1;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+    }
+    
+    .dropdown-item:hover {
+      background-color: rgba(139, 92, 246, 0.1);
+      color: var(--primary-color);
+    }
+    
+    .dropdown-item i {
+      margin-right: 8px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .dropdown-toggle::after {
+      margin-left: 5px;
+    }
+    
+    .user-dropdown .dropdown-toggle {
+      display: flex;
+      align-items: center;
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .user-dropdown .dropdown-toggle:hover {
+      color: var(--primary-color);
+      background-color: rgba(139, 92, 246, 0.1);
+    }
+    
+    .user-dropdown .dropdown-toggle i {
+      margin-right: 8px;
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .navbar-nav {
@@ -342,6 +419,13 @@
         width: 100%;
         justify-content: flex-end;
       }
+      
+      .dropdown-menu {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        padding-left: 1rem;
+      }
     }
   </style>
 </head>
@@ -360,36 +444,64 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           @auth
-          <li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link {{ request()->routeIs('todo.index') ? 'active' : '' }}" 
                 href="{{ route('todo.index') }}">
-                <i class="fas fa-calendar-day me-1"></i> Home
+                <i class="fas fa-home me-1"></i> Home
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link {{ request()->routeIs('todo.daily') ? 'active' : '' }}" href="{{ route('todo.daily') }}">
-                <i class="fas fa-calendar-day me-1"></i> Daily
+            
+            <!-- Dropdown Menu untuk Jadwal -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-calendar-alt me-1"></i> Jadwal
               </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item {{ request()->routeIs('todo.create') ? 'active' : '' }}" 
+                    href="{{ route('todo.create') }}">
+                    <i class="fas fa-plus-circle"></i> Tambah Jadwal
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item {{ request()->routeIs('todo.daily') ? 'active' : '' }}" 
+                    href="{{ route('todo.daily') }}">
+                    <i class="fas fa-calendar-day"></i> Daily
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item {{ request()->routeIs('todo.weekly') ? 'active' : '' }}" 
+                    href="{{ route('todo.weekly') }}">
+                    <i class="fas fa-calendar-week"></i> Weekly
+                  </a>
+                </li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link {{ request()->routeIs('todo.weekly') ? 'active' : '' }}" href="{{ route('todo.weekly') }}">
-                <i class="fas fa-calendar-week me-1"></i> Weekly
-              </a>
-            </li>
-            <li class="nav-item ms-3">
-              <span class="nav-link">
+            
+            <!-- Dropdown Menu untuk User -->
+            <li class="nav-item dropdown user-dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user me-1"></i> {{ Auth::user()->name }}
-              </span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item {{ request()->routeIs('profile.show') ? 'active' : '' }}"
+                    href="{{ route('profile.show') }}">
+                    <i class="fas fa-user-circle"></i> Profil Saya
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <form method="POST" action="{{ route('logout') }}" id="logout-form">
+                    @csrf
+                    <button type="button" class="dropdown-item text-danger"
+                      onclick="if(confirm('Apakah kamu yakin ingin logout?')) document.getElementById('logout-form').submit();">
+                      <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                  </form>
+                </li>
+              </ul>
             </li>
-          <li class="nav-item">
-            <form method="POST" action="{{ route('logout') }}" id="logout-form" style="display:inline;">
-              @csrf
-              <button type="button" class="nav-link btn btn-link" style="border:none; cursor:pointer;"
-                onclick="if(confirm('Apakah kamu yakin ingin logout?')) document.getElementById('logout-form').submit();">
-                <i class="fas fa-sign-out-alt me-1"></i> Logout
-              </button>
-            </form>
-          </li>
 
           @else
             <li class="nav-item">
@@ -397,7 +509,7 @@
                 <i class="fas fa-sign-in-alt me-1"></i> Login
               </a>
             </li>
-            <li class="nav-item ms-2">
+            <li class="nav-item">
               <a class="btn btn-primary" href="{{ route('register') }}">
                 <i class="fas fa-user-plus me-1"></i> Daftar
               </a>

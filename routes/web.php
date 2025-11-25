@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 Route::get('/', function () {
     return auth()->check() ? redirect()->route('todo.index') : redirect()->route('login');
@@ -23,9 +25,16 @@ Route::middleware('auth')->group(function () {
     //route untuk toggle status via POST
     Route::post('/todo/{todo}/toggle', [TodoController::class, 'toggle'])->name('todo.toggle');
 
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
+
     // register resource routes for Todo without global policy middleware
     // (we'll enforce ownership inside controller methods where needed)
     Route::resource('todo', TodoController::class);
 });
+
+
 
 

@@ -51,9 +51,9 @@
     @else
     <div class="card">
         <div class="card-body text-center py-5">
-            <i class="fas fa-clipboard-list text-muted mb-3" style="font-size: 3rem;"></i>
-            <h4 class="text-muted">Tidak ada tugas untuk minggu ini</h4>
-            <p class="text-muted mb-4">Silakan tambah tugas baru</p>
+            <i class="fas fa-clipboard-list text-ligh mb-3" style="font-size: 3rem;"></i>
+            <h4 class="text-ligh">Tidak ada tugas untuk minggu ini</h4>
+            <p class="text-ligh mb-4">Silakan tambah tugas baru</p>
             <a href="{{ route('todo.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus me-1"></i> Tambah Tugas Baru
             </a>
