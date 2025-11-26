@@ -14,7 +14,8 @@ class TodoController extends Controller
     {
         $todos = Todo::where('user_id', auth()->id())
                       ->orderBy('tanggal')
-                      ->orderBy('jam')
+                      ->orderBy('jam_mulai')
+                      ->orderBy('jam_selesai')
                       ->get();
         return view('todo.index', compact('todos'));
     }
@@ -36,8 +37,10 @@ class TodoController extends Controller
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'tanggal' => 'required|date',
-            'jam' => 'required|date_format:H:i',
+            // 'jam' => 'required|date_format:H:i',
             'deadline' => 'required|date',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai'
         ]);
 
         $data['user_id'] = auth()->id();

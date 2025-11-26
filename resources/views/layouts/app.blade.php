@@ -532,7 +532,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p>&copy; {{ date('Y') }} Instagram Suparya_Ya</p>
+      <p>&copy; {{ date('Y') }} Hi {{ Auth::user()->name }} ,what ur day? </p>
     </div>
   </footer>
 

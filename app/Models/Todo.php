@@ -17,11 +17,13 @@ class Todo extends Model
         'jam',
         'status',
         'deadline',
+        'jam_mulai',
+        'jam_selesai',
     ];
 
     protected $casts = [
         'tanggal' => 'date',
-        'jam' => 'datetime:H:i',
+        'deadline' => 'date',
         'status' => 'boolean',
     ];
 
