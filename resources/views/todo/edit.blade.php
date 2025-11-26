@@ -31,11 +31,15 @@
             <input type="date" name="tanggal" value="{{ old('tanggal', $todo->tanggal) }}" class="form-control" required>
             @error('tanggal') <div class="text-danger small">{{ $message }}</div> @enderror
           </div>
-
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Jam Mulai</label>
+            <input type="time" name="jam_mulai" value="{{ old('jam_mulai') }}" class="form-control" required>
+            @error('jam_mulai') <div class="text-danger small">{{ $message }}</div> @enderror
+          </div>
           <div class="col-md-6 mb-3">
-            <label class="form-label">Jam</label>
-            <input type="time" name="jam" value="{{ old('jam', $todo->jam) }}" class="form-control" required>
-            @error('jam') <div class="text-danger small">{{ $message }}</div> @enderror
+            <label class="form-label">Jam Selesai</label>
+            <input type="time" name="jam_selesai" value="{{ old('jam_selesai') }}" class="form-control" required>
+            @error('jam_selesai') <div class="text-danger small">{{ $message }}</div> @enderror
           </div>
         </div>
 

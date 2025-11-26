@@ -475,6 +475,12 @@
                     <i class="fas fa-calendar-week"></i> Weekly
                   </a>
                 </li>
+                <li>
+                  <a class="dropdown-item {{ request()->routeIs('todo.rekomendasi') ? 'active' : '' }}" 
+                    href="{{ route('todo.rekomendasi') }}">
+                    <i class="fas fa-calendar-week"></i> Recommendations
+                  </a>
+                </li>
               </ul>
             </li>
             

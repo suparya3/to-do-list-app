@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 
+    Route::get('/todo/rekomendasi',[TodoController::class, 'rekomendasi'])->name('todo.rekomendasi');
 
     // register resource routes for Todo without global policy middleware
     // (we'll enforce ownership inside controller methods where needed)
